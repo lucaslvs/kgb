@@ -23,7 +23,8 @@ defmodule KGB.MixProject do
   defp deps do
     [
       {:jason, "~> 1.2"},
-      {:exop, "~> 1.4"}
+      {:exop, "~> 1.4"},
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 end
