@@ -5,8 +5,13 @@ defmodule KGB.Employee.Create do
 
   alias KGB.Employee
 
-  parameter :name, type: :string, from: "name"
-  parameter :rating, type: :integer, from: "rating", numericality: %{greater_than_or_equal_to: 0, less_than_or_equal_to: 50}
+  parameter(:name, type: :string, from: "name")
+
+  parameter(:rating,
+    type: :integer,
+    from: "rating",
+    numericality: %{greater_than_or_equal_to: 0, less_than_or_equal_to: 50}
+  )
 
   @doc false
   @impl Exop.Operation
