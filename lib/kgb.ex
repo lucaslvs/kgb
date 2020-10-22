@@ -29,11 +29,7 @@ defmodule KGB do
 
   defp calculate_average_employees_rating(employees) do
     employees
-    |> calculate_total_employees_rating()
+    |> Enum.reduce(&(&1["rating"] + &2))
     |> div(length(employees))
-  end
-
-  defp calculate_total_employees_rating(employees) do
-    Enum.reduce(employees, 0, &(&1["rating"] + &2))
   end
 end
