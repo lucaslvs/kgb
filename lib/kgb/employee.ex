@@ -33,4 +33,18 @@ defmodule KGB.Employee do
   def create(parameters) when is_map(parameters) do
     __MODULE__.Create.run(parameters)
   end
+
+  @doc """
+  Calculate the average rating from a list of `KGB.Employee`.
+
+  ## Examples
+
+      #TODO
+      iex>
+  """
+  @spec calculate_average_rating(list(KGB.Employee.t() | [])) ::
+          {:ok, integer()} | {:error, any()}
+  def calculate_average_rating(employees) when is_list(employees) do
+    __MODULE__.CalculateAverageRating.run(employees: employees)
+  end
 end

@@ -147,4 +147,24 @@ defmodule KGB.Review do
   def create(parameters) when is_map(parameters) do
     __MODULE__.Create.run(parameters)
   end
+
+  @doc """
+  Sort a list of `KGB.Review.t()` by the following criteria:
+
+  1. Highest rated `KGB.Review.t()` by the number of stars
+  2. The average of `KGB.Employee.t()` rating
+  3. Number of `KGB.Employee.t()` mentioned in the review
+  4. Number of topics evaluated
+
+  ## Examples
+
+      #TODO
+      iex> {:ok, sorted_reviews} = sort_reviews_by_overly_positive(reviews)
+      []
+  """
+  @spec sort_by_overly_positive(list(KGB.Review.t())) ::
+          {:ok, list(KGB.Review.t())} | {:error, any()}
+  def sort_by_overly_positive(reviews) do
+    __MODULE__.SortByOverlyPositive.run(reviews: reviews)
+  end
 end
