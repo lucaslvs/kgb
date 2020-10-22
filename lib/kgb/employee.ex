@@ -1,4 +1,8 @@
 defmodule KGB.Employee do
+  @moduledoc """
+  This module is responsible for model an employee mentioned in the `KGB.Review`.
+  """
+
   @enforce_keys [:name, :rating]
 
   defstruct @enforce_keys
