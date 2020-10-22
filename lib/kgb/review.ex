@@ -144,7 +144,7 @@ defmodule KGB.Review do
       {:error, {:validation, %{ "mentioned_employees[0]" => ["is not expected struct; expected: KGB.Employee; got: \"a\""]}}}
   """
   @spec create(map()) :: {:ok, KGB.Review.t()} | {:error, any()}
-  def create(parameters \\ %{}) when is_map(parameters) do
+  def create(parameters) when is_map(parameters) do
     __MODULE__.Create.run(parameters)
   end
 end
