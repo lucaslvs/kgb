@@ -4,13 +4,13 @@ defmodule KGB.Review do
     :content,
     :rating,
     :published_at,
-    :custom_service_rating,
-    :quality_of_work_rating,
-    :friendliness_rating,
-    :pricing_rating,
-    :overall_experience_rating,
-    :recommendend_dealer_rating,
-    :employees_worked_with
+    :custom_service,
+    :quality_of_work,
+    :friendliness,
+    :pricing,
+    :overall_experience,
+    :recommendend_dealer,
+    :mentioned_employees
   ]
 
   defstruct @enforce_keys
