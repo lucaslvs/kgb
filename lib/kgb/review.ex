@@ -6,8 +6,8 @@ defmodule KGB.Review do
   @enforce_keys [
     :from,
     :content,
-    :rating,
     :published_at,
+    :rating,
     :custom_service,
     :quality_of_work,
     :friendliness,
@@ -22,8 +22,8 @@ defmodule KGB.Review do
   @type t() :: %KGB.Review{
           from: binary(),
           content: binary(),
-          rating: integer(),
           published_at: binary(),
+          rating: integer(),
           custom_service: integer(),
           quality_of_work: integer(),
           friendliness: integer(),
