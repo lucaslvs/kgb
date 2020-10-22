@@ -1,0 +1,1 @@
+alias KGB.{Employee, Review}
