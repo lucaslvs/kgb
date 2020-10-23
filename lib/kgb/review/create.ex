@@ -7,7 +7,7 @@ defmodule KGB.Review.Create do
 
   parameter(:custumer_name, type: :string, from: "custumer_name")
   parameter(:content, type: :string, from: "content")
-  parameter(:published_at, type: :string, from: "published_at")
+  parameter(:publication_date, type: :string, from: "publication_date")
 
   parameter(:rating,
     type: :integer,

@@ -12,7 +12,7 @@ config :crawly,
     #  fields: [
     #    :custumer_name,
     #    :content,
-    #    :published_at,
+    #    :publication_date,
     #    :rating,
     #    :custom_service,
     #    :quality_of_work,
