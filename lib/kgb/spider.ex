@@ -27,8 +27,9 @@ defmodule KGB.Spider do
 
     items =
       document
-      |> find_reviews()
-      |> build_reviews()
+      |> Floki.find("div.review-entry")
+      |> Stream.map(&fetch_review/1)
+      |> Enum.to_list()
 
     %ParsedItem{items: items, requests: []}
   end
@@ -37,19 +38,15 @@ defmodule KGB.Spider do
     "#{base_url()}/dealer/#{dealer_path}/page#{number}"
   end
 
-  defp find_reviews(document) do
-    Floki.find(document, "div.review-entry")
+  defp fetch_review(review_document) do
+    rating = find_review_rating(review_document)
+    custumer_name = find_review_custumer_name(review_document)
+
+    Map.new(custumer_name: custumer_name, rating: rating)
   end
 
-  defp build_reviews(reviews) do
-    Enum.map(reviews, fn review ->
-      rating = find_review_rating(review)
-      Map.new(rating: rating)
-    end)
-  end
-
-  defp find_review_rating(review) do
-    review
+  defp find_review_rating(review_document) do
+    review_document
     |> Floki.find("div.dealership-rating > div.rating-static.margin-center")
     |> Floki.attribute("class")
     |> List.first()
@@ -58,5 +55,13 @@ defmodule KGB.Spider do
     |> String.split("-")
     |> List.last()
     |> String.to_integer()
+  end
+
+  defp find_review_custumer_name(review_document) do
+    review_document
+    |> Floki.find("div.review-wrapper > div:nth-child(1) > span")
+    |> Floki.text()
+    |> String.split()
+    |> List.last()
   end
 end

@@ -10,7 +10,7 @@ config :crawly,
   pipelines: [
     # {Crawly.Pipelines.Validate,
     #  fields: [
-    #    :from,
+    #    :custumer_name,
     #    :content,
     #    :published_at,
     #    :rating,

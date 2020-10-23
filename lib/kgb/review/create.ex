@@ -5,7 +5,7 @@ defmodule KGB.Review.Create do
 
   alias KGB.{Employee, Review}
 
-  parameter(:from, type: :string, from: "from")
+  parameter(:custumer_name, type: :string, from: "custumer_name")
   parameter(:content, type: :string, from: "content")
   parameter(:published_at, type: :string, from: "published_at")
 
