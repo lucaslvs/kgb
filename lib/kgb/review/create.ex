@@ -51,7 +51,7 @@ defmodule KGB.Review.Create do
     numericality: %{greater_than_or_equal_to: 0, less_than_or_equal_to: 50}
   )
 
-  parameter(:recommendend_dealer, type: :string, from: "recommendend_dealer")
+  parameter(:recommend_dealer, type: :string, from: "recommend_dealer")
   parameter(:mentioned_employees, list_item: %{struct: Employee})
 
   @doc false

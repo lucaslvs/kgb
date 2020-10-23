@@ -19,7 +19,7 @@ config :crawly,
     #    :friendliness,
     #    :pricing,
     #    :overall_experience,
-    #    :recommendend_dealer,
+    #    :recommend_dealer,
     #    :mentioned_employees
     #  ]},
     Crawly.Pipelines.JSONEncoder,

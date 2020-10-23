@@ -48,7 +48,8 @@ defmodule KGB.Spider do
       quality_of_work: find_review_quality_of_work(review_document),
       friendliness: find_review_friendliness(review_document),
       pricing: find_review_pricing(review_document),
-      overall_experience: find_review_overall_experience(review_document)
+      overall_experience: find_review_overall_experience(review_document),
+      recommend_dealer: find_review_recommend_dealer(review_document)
     )
   end
 
@@ -106,6 +107,13 @@ defmodule KGB.Spider do
     review_document
     |> Floki.find("div.review-ratings-all > div.table > div:nth-child(5) > div:nth-child(2)")
     |> find_rating_value(1)
+  end
+
+  defp find_review_recommend_dealer(review_document) do
+    review_document
+    |> Floki.find("div.review-ratings-all > div.table > div:nth-child(6) > div:nth-child(2)")
+    |> Floki.text()
+    |> String.trim()
   end
 
   defp find_rating_value(element, class_index) do

@@ -13,7 +13,7 @@ defmodule KGB.Review do
     :friendliness,
     :pricing,
     :overall_experience,
-    :recommendend_dealer,
+    :recommend_dealer,
     :mentioned_employees
   ]
 
@@ -29,7 +29,7 @@ defmodule KGB.Review do
           friendliness: integer(),
           pricing: integer(),
           overall_experience: integer(),
-          recommendend_dealer: binary(),
+          recommend_dealer: binary(),
           mentioned_employees: list(KGB.Employee.t())
         }
 
@@ -51,7 +51,7 @@ defmodule KGB.Review do
       ... publication_date: "October 21, 2020",
       ... quality_of_work: 10,
       ... rating: 10,
-      ... recommendend_dealer: "Yes",
+      ... recommend_dealer: "Yes",
       ... mentioned_employees: [employee]
       ... }
       %{
@@ -64,7 +64,7 @@ defmodule KGB.Review do
         publication_date: "October 21, 2020",
         quality_of_work: 10,
         rating: 10,
-        recommendend_dealer: "Yes",
+        recommend_dealer: "Yes",
         mentioned_employees: [%KGB.Employee{name: "Lucas", rating: 50}]
       }
 
@@ -80,7 +80,7 @@ defmodule KGB.Review do
         publication_date: "October 21, 2020",
         quality_of_work: 10,
         rating: 10,
-        recommendend_dealer: "Yes"
+        recommend_dealer: "Yes"
       }}
 
       iex> invalid_parameters = %{
@@ -93,7 +93,7 @@ defmodule KGB.Review do
       ... publication_date: "October 21, 2020",
       ... quality_of_work: 10,
       ... rating: 10,
-      ... recommendend_dealer: "Yes",
+      ... recommend_dealer: "Yes",
       ... mentioned_employees: []
       ... }
       %{
@@ -106,7 +106,7 @@ defmodule KGB.Review do
         publication_date: "October 21, 2020",
         quality_of_work: 10,
         rating: 10,
-        recommendend_dealer: "Yes",
+        recommend_dealer: "Yes",
         mentioned_employees: []
       }
 
@@ -123,7 +123,7 @@ defmodule KGB.Review do
       ... publication_date: "October 21, 2020",
       ... quality_of_work: 10,
       ... rating: 10,
-      ... recommendend_dealer: "Yes",
+      ... recommend_dealer: "Yes",
       ... mentioned_employees: ["a"]
       ... }
       %{
@@ -136,7 +136,7 @@ defmodule KGB.Review do
         publication_date: "October 21, 2020",
         quality_of_work: 10,
         rating: 10,
-        recommendend_dealer: "Yes",
+        recommend_dealer: "Yes",
         mentioned_employees: ["a"]
       }
 
