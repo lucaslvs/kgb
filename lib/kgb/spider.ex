@@ -49,7 +49,8 @@ defmodule KGB.Spider do
       friendliness: find_review_friendliness(review_document),
       pricing: find_review_pricing(review_document),
       overall_experience: find_review_overall_experience(review_document),
-      recommend_dealer: find_review_recommend_dealer(review_document)
+      recommend_dealer: find_review_recommend_dealer(review_document),
+      mentioned_employees: find_review_mentioned_employees(review_document)
     )
   end
 
@@ -116,12 +117,38 @@ defmodule KGB.Spider do
     |> String.trim()
   end
 
-  defp find_rating_value(element, class_index) do
+  defp find_review_mentioned_employees(review_document) do
+    review_document
+    |> Floki.find("div.review-employee > div.table > div:nth-child(2)")
+    |> Enum.map(&fetch_employee/1)
+  end
+
+  defp fetch_employee(employee_document) do
+    name = find_employee_name(employee_document)
+    rating = find_employee_rating(employee_document)
+
+    Map.new(name: name, rating: rating)
+  end
+
+  defp find_employee_name(employee_document) do
+    employee_document
+    |> Floki.find("a")
+    |> Floki.text()
+    |> String.trim()
+  end
+
+  defp find_employee_rating(employee_document) do
+    employee_document
+    |> Floki.find("div > div > div > div.rating-static")
+    |> find_rating_value(1)
+  end
+
+  defp find_rating_value(element, index) do
     element
     |> Floki.attribute("class")
     |> List.first()
     |> String.split()
-    |> Enum.at(class_index)
+    |> Enum.at(index)
     |> String.split("-")
     |> List.last()
     |> String.to_integer()
