@@ -23,3 +23,5 @@ erl_crash.dump
 kgb-*.tar
 
 /.elixir_ls/
+
+KGB.Spider.json
