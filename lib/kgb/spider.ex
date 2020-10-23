@@ -45,7 +45,8 @@ defmodule KGB.Spider do
       publication_date: find_review_publication_date(review_document),
       rating: find_review_rating(review_document),
       custom_service: find_review_custom_service(review_document),
-      quality_of_work: find_review_quality_of_work(review_document)
+      quality_of_work: find_review_quality_of_work(review_document),
+      friendliness: find_review_friendliness(review_document)
     )
   end
 
@@ -84,6 +85,12 @@ defmodule KGB.Spider do
   defp find_review_quality_of_work(review_document) do
     review_document
     |> Floki.find("div.review-ratings-all > div.table > div:nth-child(2) > div:nth-child(2)")
+    |> find_rating_value(1)
+  end
+
+  defp find_review_friendliness(review_document) do
+    review_document
+    |> Floki.find("div.review-ratings-all > div.table > div:nth-child(3) > div:nth-child(2)")
     |> find_rating_value(1)
   end
 
