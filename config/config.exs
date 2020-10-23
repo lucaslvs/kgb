@@ -23,7 +23,7 @@ config :crawly,
        :mentioned_employees
      ]},
     Crawly.Pipelines.JSONEncoder,
-    {Crawly.Pipelines.WriteToFile, extension: "json", folder: "./"}
+    {Crawly.Pipelines.WriteToFile, extension: "json", folder: "./", include_timestamp: false}
   ]
 
 config :kgb, KGB.Spider,
