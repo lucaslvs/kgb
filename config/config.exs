@@ -28,5 +28,9 @@ config :crawly,
 
 config :kgb, KGB.Spider,
   base_url: "https://www.dealerrater.com",
-  dealer_path: System.get_env("DEALER_PATH", "McKaig-Chevrolet-Buick-A-Dealer-For-The-People-dealer-reviews-23685"),
+  dealer_path:
+    System.get_env(
+      "DEALER_PATH",
+      "McKaig-Chevrolet-Buick-A-Dealer-For-The-People-dealer-reviews-23685"
+    ),
   page_number: String.to_integer(System.get_env("PAGE_NUMBER", "5"))

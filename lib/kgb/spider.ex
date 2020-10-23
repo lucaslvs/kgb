@@ -39,16 +39,11 @@ defmodule KGB.Spider do
   end
 
   defp fetch_review(review_document) do
-    custumer_name = find_review_custumer_name(review_document)
-    content = find_review_content(review_document)
-    publication_date = find_review_publication_date(review_document)
-    rating = find_review_rating(review_document)
-
     Map.new(
-      custumer_name: custumer_name,
-      content: content,
-      publication_date: publication_date,
-      rating: rating
+      custumer_name: find_review_custumer_name(review_document),
+      content: find_review_content(review_document),
+      publication_date: find_review_publication_date(review_document),
+      rating: find_review_rating(review_document)
     )
   end
 
