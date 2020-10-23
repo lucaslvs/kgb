@@ -24,7 +24,6 @@ defmodule KGB.MixProject do
     [
       {:crawly, "~> 0.11.0"},
       {:floki, "~> 0.26.0"},
-      {:jason, "~> 1.2"},
       {:exop, "~> 1.4"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
