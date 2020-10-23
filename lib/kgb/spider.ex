@@ -71,22 +71,21 @@ defmodule KGB.Spider do
   defp find_review_rating(review_document) do
     review_document
     |> Floki.find("div.dealership-rating > div.rating-static.margin-center")
-    |> Floki.attribute("class")
-    |> List.first()
-    |> String.split()
-    |> Enum.at(2)
-    |> String.split("-")
-    |> List.last()
-    |> String.to_integer()
+    |> find_rating_value(2)
   end
 
   defp find_review_custom_service(review_document) do
     review_document
     |> Floki.find("div.review-ratings-all > div.table > div:nth-child(1) > div:nth-child(2)")
+    |> find_rating_value(1)
+  end
+
+  defp find_rating_value(element, class_index) do
+    element
     |> Floki.attribute("class")
     |> List.first()
     |> String.split()
-    |> Enum.at(1)
+    |> Enum.at(class_index)
     |> String.split("-")
     |> List.last()
     |> String.to_integer()
