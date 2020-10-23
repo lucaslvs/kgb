@@ -39,10 +39,18 @@ defmodule KGB.Spider do
   end
 
   defp fetch_review(review_document) do
-    rating = find_review_rating(review_document)
     custumer_name = find_review_custumer_name(review_document)
+    rating = find_review_rating(review_document)
 
     Map.new(custumer_name: custumer_name, rating: rating)
+  end
+
+  defp find_review_custumer_name(review_document) do
+    review_document
+    |> Floki.find("div.review-wrapper > div:nth-child(1) > span")
+    |> Floki.text()
+    |> String.split()
+    |> List.last()
   end
 
   defp find_review_rating(review_document) do
@@ -55,13 +63,5 @@ defmodule KGB.Spider do
     |> String.split("-")
     |> List.last()
     |> String.to_integer()
-  end
-
-  defp find_review_custumer_name(review_document) do
-    review_document
-    |> Floki.find("div.review-wrapper > div:nth-child(1) > span")
-    |> Floki.text()
-    |> String.split()
-    |> List.last()
   end
 end
