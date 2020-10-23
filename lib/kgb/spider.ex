@@ -43,7 +43,8 @@ defmodule KGB.Spider do
       custumer_name: find_review_custumer_name(review_document),
       content: find_review_content(review_document),
       publication_date: find_review_publication_date(review_document),
-      rating: find_review_rating(review_document)
+      rating: find_review_rating(review_document),
+      custom_service: find_review_custom_service(review_document)
     )
   end
 
@@ -74,6 +75,18 @@ defmodule KGB.Spider do
     |> List.first()
     |> String.split()
     |> Enum.at(2)
+    |> String.split("-")
+    |> List.last()
+    |> String.to_integer()
+  end
+
+  defp find_review_custom_service(review_document) do
+    review_document
+    |> Floki.find("div.review-ratings-all > div.table > div:nth-child(1) > div:nth-child(2)")
+    |> Floki.attribute("class")
+    |> List.first()
+    |> String.split()
+    |> Enum.at(1)
     |> String.split("-")
     |> List.last()
     |> String.to_integer()
