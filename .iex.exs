@@ -1,1 +1,1 @@
-alias KGB.{Employee, Review}
+alias KGB.{Employee, Review, Spider}
