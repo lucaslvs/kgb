@@ -52,12 +52,7 @@ defmodule KGB.Review.Create do
   )
 
   parameter(:recommend_dealer, type: :string, from: "recommend_dealer")
-
-  parameter(:mentioned_employees,
-    list_item: %{struct: Employee},
-    from: "mentioned_employees",
-    length: %{min: 1}
-  )
+  parameter(:mentioned_employees, list_item: %{struct: Employee}, from: "mentioned_employees")
 
   @doc false
   @impl Exop.Operation
