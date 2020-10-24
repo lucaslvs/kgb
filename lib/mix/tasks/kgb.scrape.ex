@@ -1,5 +1,5 @@
 defmodule Mix.Tasks.Kgb.Scrape do
-  @moduledoc "Print the top three reviews overly positive from DealerRater"
+  @moduledoc "Print the top three overly positive reviews from DealerRater"
 
   use Mix.Task
 
