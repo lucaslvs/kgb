@@ -3,6 +3,8 @@ defmodule KGB.EmployeeTest do
 
   alias KGB.Employee
 
+  import KGB.Factory
+
   describe "create/1" do
     test "should returns a Employee when receive valid parameters" do
       assert {:ok, %Employee{name: "Lucas", rating: 50}} =
@@ -47,13 +49,8 @@ defmodule KGB.EmployeeTest do
 
   describe "calculate_average_rating/1" do
     test "returns the average rating from the Employee list" do
-      employees = [
-        %Employee{name: "1", rating: 10},
-        %Employee{name: "2", rating: 20},
-        %Employee{name: "3", rating: 30}
-      ]
-
-      assert {:ok, 20} = Employee.calculate_average_rating(employees)
+      employees = build_list(3, :employee)
+      assert {:ok, 50} = Employee.calculate_average_rating(employees)
     end
 
     test "returns 0 when receive a empty list" do

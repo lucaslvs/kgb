@@ -1,7 +1,9 @@
 defmodule KGB.ReviewTest do
   use ExUnit.Case
 
-  alias KGB.{Review, Employee}
+  alias KGB.Review
+
+  import KGB.Factory
 
   describe "create/1" do
     test "should returns a Review when receive valid parameters" do
@@ -16,7 +18,7 @@ defmodule KGB.ReviewTest do
         quality_of_work: 10,
         rating: 10,
         recommend_dealer: "Yes",
-        mentioned_employees: [%Employee{name: "Lucas", rating: 50}]
+        mentioned_employees: build_list(3, :employee)
       }
 
       assert {:ok, %Review{}} = Review.create(parameters)
