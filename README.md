@@ -1,21 +1,33 @@
 # KGB
 
-**TODO: Add description**
+> A Dealer for The People
 
-## Installation
+This project is a Crawler that scrapes some reviews posted in [DealerRater](https://www.dealerrater.com/) from dealer [McKaig Chevrolet Buick](https://www.mckaig.net/) and prints the top three overly positive.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `kgb` to your list of dependencies in `mix.exs`:
+The Crawler was built with [Crawly](https://github.com/oltarasenko/crawly) and [Floki](https://github.com/philss/floki) packages.
 
-```elixir
-def deps do
-  [
-    {:kgb, "~> 0.1.0"}
-  ]
-end
+## Requirements
+
+- `Elixir 1.10` or greater
+
+## Usage
+
+To perform the crawler it is necessary to follow the following steps:
+
+- install the dependencies
+
+  ```sh
+  mix deps.get
+  ```
+
+- Running the crawler and see the top three overly positive endorsements
+
+  ```sh
+  mix kgb.scrape
+  ```
+
+## Testing
+
+```sh
+mix test
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/kgb](https://hexdocs.pm/kgb).
-
