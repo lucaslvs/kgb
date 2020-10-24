@@ -42,18 +42,18 @@ defmodule KGB.Review do
       {:ok, %KGB.Employee{name: "Lucas", rating: 50}}
 
       iex> valid_parameters = %{
-      ... content: "some content",
-      ... custom_service: 50,
-      ... friendliness: 50,
-      ... custumer_name: "client",
-      ... overall_experience: 10,
-      ... pricing: 10,
-      ... publication_date: "October 21, 2020",
-      ... quality_of_work: 10,
-      ... rating: 10,
-      ... recommend_dealer: "Yes",
-      ... mentioned_employees: [employee]
-      ... }
+      ...> content: "some content",
+      ...> custom_service: 50,
+      ...> friendliness: 50,
+      ...> custumer_name: "client",
+      ...> overall_experience: 10,
+      ...> pricing: 10,
+      ...> publication_date: "October 21, 2020",
+      ...> quality_of_work: 10,
+      ...> rating: 10,
+      ...> recommend_dealer: "Yes",
+      ...> mentioned_employees: [employee]
+      ...> }
       %{
         content: "some content",
         custom_service: 50,
@@ -84,18 +84,18 @@ defmodule KGB.Review do
       }}
 
       iex> invalid_parameters = %{
-      ... content: "some content",
-      ... custom_service: 50,
-      ... friendliness: 50,
-      ... custumer_name: "client",
-      ... overall_experience: 10,
-      ... pricing: 10,
-      ... publication_date: "October 21, 2020",
-      ... quality_of_work: 10,
-      ... rating: 10,
-      ... recommend_dealer: "Yes",
-      ... mentioned_employees: []
-      ... }
+      ...> content: "some content",
+      ...> custom_service: 50,
+      ...> friendliness: 50,
+      ...> custumer_name: "client",
+      ...> overall_experience: 10,
+      ...> pricing: 10,
+      ...> publication_date: "October 21, 2020",
+      ...> quality_of_work: 10,
+      ...> rating: 10,
+      ...> recommend_dealer: "Yes",
+      ...> mentioned_employees: []
+      ...> }
       %{
         content: "some content",
         custom_service: 50,
@@ -114,18 +114,18 @@ defmodule KGB.Review do
       {:error, {:validation, %{mentioned_employees: ["length must be greater than or equal to 1; got length: 0"]}}}
 
       iex> invalid_parameters = %{
-      ... content: "some content",
-      ... custom_service: 50,
-      ... friendliness: 50,
-      ... custumer_name: "client",
-      ... overall_experience: 10,
-      ... pricing: 10,
-      ... publication_date: "October 21, 2020",
-      ... quality_of_work: 10,
-      ... rating: 10,
-      ... recommend_dealer: "Yes",
-      ... mentioned_employees: ["a"]
-      ... }
+      ...> content: "some content",
+      ...> custom_service: 50,
+      ...> friendliness: 50,
+      ...> custumer_name: "client",
+      ...> overall_experience: 10,
+      ...> pricing: 10,
+      ...> publication_date: "October 21, 2020",
+      ...> quality_of_work: 10,
+      ...> rating: 10,
+      ...> recommend_dealer: "Yes",
+      ...> mentioned_employees: ["a"]
+      ...> }
       %{
         content: "some content",
         custom_service: 50,
