@@ -5,7 +5,7 @@ defmodule KGB.Employee.Create do
 
   alias KGB.Employee
 
-  parameter(:name, type: :string, from: "name")
+  parameter(:name, type: :string, from: "name", length: %{min: 1})
 
   parameter(:rating,
     type: :integer,
