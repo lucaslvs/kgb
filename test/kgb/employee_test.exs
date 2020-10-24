@@ -5,7 +5,8 @@ defmodule KGB.EmployeeTest do
 
   describe "create/1" do
     test "should returns a Employee when receive valid parameters" do
-      assert {:ok, %Employee{name: "Lucas", rating: 50}} = Employee.create(%{name: "Lucas", rating: 50})
+      assert {:ok, %Employee{name: "Lucas", rating: 50}} =
+               Employee.create(%{name: "Lucas", rating: 50})
     end
 
     @tag capture_log: true
