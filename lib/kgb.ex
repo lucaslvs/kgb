@@ -1,6 +1,7 @@
 defmodule KGB do
   @moduledoc """
-  The main module that contains the `print_top_three_reviews_overly_positive/0` function that spawn the `KGB.Spider` and prints the top three overly positive reviews.
+  The main module that contains the `print_top_three_reviews_overly_positive/0`
+  function that spawn the `KGB.Spider` and prints the top three overly positive reviews.
   """
 
   @file_name "KGB.Spider.json"
