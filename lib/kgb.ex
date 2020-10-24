@@ -11,8 +11,8 @@ defmodule KGB do
   @doc """
 
   """
-  @spec start :: :ok
-  def start do
+  @spec print_top_three_reviews_overly_positive :: :ok
+  def print_top_three_reviews_overly_positive do
     start_spider()
     |> read_parsed_items()
     |> delete_parsed_items()
