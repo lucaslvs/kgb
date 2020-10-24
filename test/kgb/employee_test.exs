@@ -43,4 +43,20 @@ defmodule KGB.EmployeeTest do
         Employee.create(%{name: "Lucas", rating: 51})
     end
   end
+
+  describe "calculate_average_rating/1" do
+    test "returns the average rating from the Employee list" do
+      employees = [
+        %Employee{name: "1", rating: 10},
+        %Employee{name: "2", rating: 20},
+        %Employee{name: "3", rating: 30}
+      ]
+
+      assert {:ok, 20} = Employee.calculate_average_rating(employees)
+    end
+
+    test "returns 0 when receive a empty list" do
+      assert {:ok, 0} = Employee.calculate_average_rating([])
+    end
+  end
 end
