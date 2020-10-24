@@ -39,8 +39,15 @@ defmodule KGB.Employee do
 
   ## Examples
 
-      #TODO
-      iex>
+      iex> employees = [
+      ...> %Employee{name: "1", rating: 10},
+      ...> %Employee{name: "2", rating: 20},
+      ...> %Employee{name: "3", rating: 30}
+      ...> ]
+      [%Employee{name: "1", rating: 10}, %Employee{name: "2", rating: 20}, %Employee{name: "3", rating: 30}]
+
+      iex> Employee.calculate_average_rating(employees)
+      {:ok, 20}
   """
   @spec calculate_average_rating(list(KGB.Employee.t() | [])) ::
           {:ok, integer()} | {:error, any()}
