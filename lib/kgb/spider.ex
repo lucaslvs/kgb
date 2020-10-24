@@ -1,5 +1,6 @@
 defmodule KGB.Spider do
   @moduledoc """
+  That module is a implementation of `Crawly.Spider` and is resposible to scrape a list of `KGB.Review.t()`.
   """
 
   @config Application.get_env(:kgb, __MODULE__)

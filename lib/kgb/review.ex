@@ -1,6 +1,6 @@
 defmodule KGB.Review do
   @moduledoc """
-  This module is responsible for model a review post in `https://www.dealerrater.com/`.
+  This module is responsible for model a review posted in `https://www.dealerrater.com/`.
   """
 
   @enforce_keys [
