@@ -12,7 +12,7 @@ The Crawler was built with [Crawly](https://github.com/oltarasenko/crawly) and [
 
 ## Usage
 
-To perform the crawler it is necessary to follow the following steps:
+To perform the crawler, open your terminal follow the steps below:
 
 - install the dependencies
 
@@ -20,7 +20,7 @@ To perform the crawler it is necessary to follow the following steps:
   mix deps.get
   ```
 
-- Running the crawler and see the top three overly positive endorsements
+- Run the crawler and see the top three overly positive endorsements
 
   ```sh
   mix kgb.scrape
