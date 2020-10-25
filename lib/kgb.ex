@@ -12,7 +12,7 @@ defmodule KGB do
   require Logger
 
   @doc """
-
+  Print the top three overly positive reviews from DealerRater.
   """
   @spec print_top_three_reviews_overly_positive :: :ok
   def print_top_three_reviews_overly_positive do
