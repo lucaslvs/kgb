@@ -3,6 +3,8 @@ defmodule KGB.Review do
   This module is responsible for model a review posted in `https://www.dealerrater.com/`.
   """
 
+  alias KGB.Employee
+
   @enforce_keys [
     :custumer_name,
     :content,
@@ -136,5 +138,39 @@ defmodule KGB.Review do
           {:ok, list(KGB.Review.t())} | {:error, any()}
   def sort_by_overly_positive(reviews) do
     __MODULE__.SortByOverlyPositive.run(reviews: reviews)
+  end
+
+  @spec template_render(KGB.Review.t()) :: binary()
+  def template_render(%__MODULE__{
+        custumer_name: custumer_name,
+        content: content,
+        publication_date: publication_date,
+        rating: rating,
+        custom_service: custom_service,
+        quality_of_work: quality_of_work,
+        friendliness: friendliness,
+        pricing: pricing,
+        overall_experience: overall_experience,
+        recommend_dealer: recommend_dealer,
+        mentioned_employees: mentioned_employees
+      }) do
+    """
+    CUSTUMER NAME: #{custumer_name}
+    PUBLICATION DATE: #{publication_date}
+    RATING: #{rating}
+    CONTENT: #{content}
+    CUSTOM SERVICE: #{custom_service}
+    QUALITY OF WORK: #{quality_of_work}
+    FRIENDLINESS: #{friendliness}
+    PRICING: #{pricing}
+    OVERALL EXPERIENCE: #{overall_experience}
+    RECOMMEND_DEALER: #{recommend_dealer}
+    MENTIONED EMPLOYEES:
+    #{render_employees(mentioned_employees)}
+    """
+  end
+
+  defp render_employees(mentioned_employees) do
+    Enum.map(mentioned_employees, &"- #{Employee.template_render(&1)}\n")
   end
 end

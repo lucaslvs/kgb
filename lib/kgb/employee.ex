@@ -54,4 +54,9 @@ defmodule KGB.Employee do
   def calculate_average_rating(employees) when is_list(employees) do
     __MODULE__.CalculateAverageRating.run(employees: employees)
   end
+
+  @spec template_render(KGB.Employee.t()) :: binary()
+  def template_render(%__MODULE__{name: name, rating: rating}) do
+    "#{name} - #{rating}"
+  end
 end

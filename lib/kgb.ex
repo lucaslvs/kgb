@@ -105,7 +105,14 @@ defmodule KGB do
     sorted_reviews
   end
 
-  defp print_top_three(_sorted_reviews) do
-    :ok
+  defp print_top_three(sorted_reviews) do
+    sorted_reviews
+    |> Enum.slice(0..2)
+    |> Enum.map(&Review.template_render/1)
+    |> Enum.with_index()
+    |> Enum.each(fn {review, index} ->
+      IO.puts("#{index + 1}º REVIEW")
+      IO.puts(review)
+    end)
   end
 end
