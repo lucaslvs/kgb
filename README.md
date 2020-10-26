@@ -6,6 +6,13 @@ This project is a Crawler that scrapes some reviews posted in [DealerRater](http
 
 The Crawler was built with [Crawly](https://github.com/oltarasenko/crawly) and [Floki](https://github.com/philss/floki) packages.
 
+## Sorting Criteria
+
+1. Highest rated review by the number of stars.
+2. The average of employee rating.
+3. Number of employee mentioned in the review.
+4. Number of topics evaluated.
+
 ## Requirements
 
 - `Elixir 1.10` or greater
