@@ -9,9 +9,9 @@ The Crawler was built with [Crawly](https://github.com/oltarasenko/crawly) and [
 ## Sorting Criteria
 
 1. Highest rated review by the number of stars.
-2. The average of employee rating.
-3. Number of employee mentioned in the review.
-4. Number of topics evaluated.
+2. The average of the employees rating.
+3. The number of employees mentioned in the review.
+4. The number of topics evaluated.
 
 ## Requirements
 
