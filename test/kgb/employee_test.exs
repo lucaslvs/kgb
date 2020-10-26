@@ -57,4 +57,13 @@ defmodule KGB.EmployeeTest do
       assert {:ok, 0} = Employee.calculate_average_rating([])
     end
   end
+
+  describe "template_render/1" do
+    test "should returns a string with employee data to print" do
+      employee = build(:employee)
+      employee_template = Employee.template_render(employee)
+
+      assert "Employee - 50" = employee_template
+    end
+  end
 end
