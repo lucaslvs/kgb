@@ -12,4 +12,4 @@ jobs:
           otp-version: "22.2"
           elixir-version: "1.10"
       - run: mix deps.get
-      - run: mix test
+      - run: mix test --trace
