@@ -1,4 +1,4 @@
-name: kgb-ci
+name: hgb-ci
 
 on: push
 
