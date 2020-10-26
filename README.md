@@ -1,3 +1,5 @@
+![kgb-ci](https://github.com/lucaslvs/kgb/workflows/kgb-ci/badge.svg?branch=master)
+
 # KGB
 
 > A Dealer for The People
