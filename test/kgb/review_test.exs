@@ -68,4 +68,28 @@ defmodule KGB.ReviewTest do
                }}} = Review.create(parameters)
     end
   end
+
+  describe "template_render/1" do
+    test "should returns a string with Review data to print" do
+      review = build(:review)
+
+      assert """
+             CUSTUMER NAME: Custumer
+             PUBLICATION DATE: October 21, 2020
+             RATING: 50
+             CONTENT: some content
+             CUSTOM SERVICE: 50
+             QUALITY OF WORK: 50
+             FRIENDLINESS: 50
+             PRICING: 50
+             OVERALL EXPERIENCE: 50
+             RECOMMEND_DEALER: Yes
+             MENTIONED EMPLOYEES:
+             - Employee - 50
+             - Employee - 50
+             - Employee - 50
+
+             """ = Review.template_render(review)
+    end
+  end
 end
