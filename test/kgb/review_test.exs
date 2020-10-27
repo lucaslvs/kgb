@@ -95,8 +95,7 @@ defmodule KGB.ReviewTest do
 
   describe "sort_by_overly_positive/1" do
     setup do
-      parameters =
-      [
+      parameters = [
         %{
           custom_service: 50,
           friendliness: 50,
@@ -153,13 +152,33 @@ defmodule KGB.ReviewTest do
         }
       ]
 
-      {:ok, reviews: Enum.map(parameters, &(build(:review, &1)))}
+      {:ok, reviews: Enum.map(parameters, &build(:review, &1))}
     end
 
     test "should sort reviews by rating criteria" do
       first_review = build(:review, rating: 50)
       second_review = build(:review, rating: 40)
       third_review = build(:review, rating: 30)
+      reviews = Enum.shuffle([first_review, second_review, third_review])
+
+      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
+      assert [first_review, second_review, third_review] = sorted_reviews
+    end
+
+    test "should sort reviews by your employee's average rating criteria" do
+      first_review = build(:review, mentioned_employees: build_list(3, :employee, rating: 50))
+
+      second_review =
+        build(:review,
+          mentioned_employees:
+            build_list(2, :employee, rating: 50) ++ [build(:employee, rating: 40)]
+        )
+
+      third_review =
+        build(:review,
+          mentioned_employees: [build(:employee, rating: 50), build(:employee, rating: 40)]
+        )
+
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
       assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
