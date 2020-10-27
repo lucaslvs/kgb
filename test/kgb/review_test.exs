@@ -107,7 +107,9 @@ defmodule KGB.ReviewTest do
     test "should sort reviews by employee's average rating criteria" do
       first_review = build(:review, mentioned_employees: build_list(3, :employee, rating: 50))
 
-      second_review_employees = build_list(2, :employee, rating: 50) ++ [build(:employee, rating: 40)]
+      second_review_employees =
+        build_list(2, :employee, rating: 50) ++ [build(:employee, rating: 40)]
+
       second_review = build(:review, mentioned_employees: second_review_employees)
 
       third_review_employees = [build(:employee, rating: 50), build(:employee, rating: 40)]
