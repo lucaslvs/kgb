@@ -94,67 +94,6 @@ defmodule KGB.ReviewTest do
   end
 
   describe "sort_by_overly_positive/1" do
-    setup do
-      parameters = [
-        %{
-          custom_service: 50,
-          friendliness: 50,
-          mentioned_employees: build_list(2, :employee) ++ build_list(1, :employee, rating: 40),
-          overall_experience: 50,
-          pricing: 0,
-          quality_of_work: 50,
-          rating: 48
-        },
-        %{
-          custom_service: 50,
-          friendliness: 50,
-          mentioned_employees: build_list(1, :employee),
-          overall_experience: 50,
-          pricing: 50,
-          quality_of_work: 50,
-          rating: 50
-        },
-        %{
-          custom_service: 50,
-          friendliness: 50,
-          mentioned_employees: build_list(2, :employee) ++ build_list(1, :employee, rating: 40),
-          overall_experience: 50,
-          pricing: 50,
-          quality_of_work: 50,
-          rating: 48
-        },
-        %{
-          custom_service: 50,
-          friendliness: 50,
-          mentioned_employees: build_list(1, :employee),
-          overall_experience: 50,
-          pricing: 50,
-          quality_of_work: 50,
-          rating: 48
-        },
-        %{
-          custom_service: 50,
-          friendliness: 50,
-          mentioned_employees: build_list(2, :employee) ++ build_list(1, :employee, rating: 40),
-          overall_experience: 50,
-          pricing: 40,
-          quality_of_work: 50,
-          rating: 48
-        },
-        %{
-          custom_service: 50,
-          friendliness: 50,
-          mentioned_employees: build_list(3, :employee),
-          overall_experience: 50,
-          pricing: 48,
-          quality_of_work: 50,
-          rating: 48
-        }
-      ]
-
-      {:ok, reviews: Enum.map(parameters, &build(:review, &1))}
-    end
-
     test "should sort reviews by rating criteria" do
       first_review = build(:review, rating: 50)
       second_review = build(:review, rating: 40)
@@ -168,16 +107,11 @@ defmodule KGB.ReviewTest do
     test "should sort reviews by employee's average rating criteria" do
       first_review = build(:review, mentioned_employees: build_list(3, :employee, rating: 50))
 
-      second_review =
-        build(:review,
-          mentioned_employees:
-            build_list(2, :employee, rating: 50) ++ [build(:employee, rating: 40)]
-        )
+      second_review_employees = build_list(2, :employee, rating: 50) ++ [build(:employee, rating: 40)]
+      second_review = build(:review, mentioned_employees: second_review_employees)
 
-      third_review =
-        build(:review,
-          mentioned_employees: [build(:employee, rating: 50), build(:employee, rating: 40)]
-        )
+      third_review_employees = [build(:employee, rating: 50), build(:employee, rating: 40)]
+      third_review = build(:review, mentioned_employees: third_review_employees)
 
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
