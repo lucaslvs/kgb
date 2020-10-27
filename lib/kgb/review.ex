@@ -134,6 +134,17 @@ defmodule KGB.Review do
     __MODULE__.SortByOverlyPositive.run(reviews: reviews)
   end
 
+  @doc """
+  Build template render for a `KGB.Review.t()` to be printed.
+
+  ## Examples
+
+      iex> {:ok, employee} = KGB.Employee.create(%{name: "Lucas", rating: 50})
+      {:ok, %KGB.Employee{name: "Lucas", rating: 50}}
+
+      iex> KGB.Employee.template_render(employee)
+      "Lucas - 50"
+  """
   @spec template_render(KGB.Review.t()) :: binary()
   def template_render(%__MODULE__{
         custumer_name: custumer_name,
