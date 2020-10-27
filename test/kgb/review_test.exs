@@ -71,7 +71,7 @@ defmodule KGB.ReviewTest do
 
   describe "template_render/1" do
     test "should returns a string with Review data to print" do
-      review = build(:review)
+      review = build(:review, recommend_dealer: "Yes")
 
       assert """
              CUSTUMER NAME: Custumer
@@ -90,6 +90,80 @@ defmodule KGB.ReviewTest do
              - Employee - 50
 
              """ = Review.template_render(review)
+    end
+  end
+
+  describe "sort_by_overly_positive/1" do
+    setup do
+      parameters =
+      [
+        %{
+          custom_service: 50,
+          friendliness: 50,
+          mentioned_employees: build_list(2, :employee) ++ build_list(1, :employee, rating: 40),
+          overall_experience: 50,
+          pricing: 0,
+          quality_of_work: 50,
+          rating: 48
+        },
+        %{
+          custom_service: 50,
+          friendliness: 50,
+          mentioned_employees: build_list(1, :employee),
+          overall_experience: 50,
+          pricing: 50,
+          quality_of_work: 50,
+          rating: 50
+        },
+        %{
+          custom_service: 50,
+          friendliness: 50,
+          mentioned_employees: build_list(2, :employee) ++ build_list(1, :employee, rating: 40),
+          overall_experience: 50,
+          pricing: 50,
+          quality_of_work: 50,
+          rating: 48
+        },
+        %{
+          custom_service: 50,
+          friendliness: 50,
+          mentioned_employees: build_list(1, :employee),
+          overall_experience: 50,
+          pricing: 50,
+          quality_of_work: 50,
+          rating: 48
+        },
+        %{
+          custom_service: 50,
+          friendliness: 50,
+          mentioned_employees: build_list(2, :employee) ++ build_list(1, :employee, rating: 40),
+          overall_experience: 50,
+          pricing: 40,
+          quality_of_work: 50,
+          rating: 48
+        },
+        %{
+          custom_service: 50,
+          friendliness: 50,
+          mentioned_employees: build_list(3, :employee),
+          overall_experience: 50,
+          pricing: 48,
+          quality_of_work: 50,
+          rating: 48
+        }
+      ]
+
+      {:ok, reviews: Enum.map(parameters, &(build(:review, &1)))}
+    end
+
+    test "should sort reviews by rating criteria" do
+      first_review = build(:review, rating: 50)
+      second_review = build(:review, rating: 40)
+      third_review = build(:review, rating: 30)
+      reviews = Enum.shuffle([first_review, second_review, third_review])
+
+      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
+      assert [first_review, second_review, third_review] = sorted_reviews
     end
   end
 end
