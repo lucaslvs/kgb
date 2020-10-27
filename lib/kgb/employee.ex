@@ -55,6 +55,9 @@ defmodule KGB.Employee do
     __MODULE__.CalculateAverageRating.run(employees: employees)
   end
 
+  @doc """
+  Build template render for a `KGB.Employee.t()` to be printed.
+  """
   @spec template_render(KGB.Employee.t()) :: binary()
   def template_render(%__MODULE__{name: name, rating: rating}) do
     "#{name} - #{rating}"
