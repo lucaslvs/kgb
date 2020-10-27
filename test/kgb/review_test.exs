@@ -128,5 +128,15 @@ defmodule KGB.ReviewTest do
       assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
       assert [first_review, second_review, third_review] = sorted_reviews
     end
+
+    test "should sort reviews by the number of rated topics" do
+      first_review = build(:review)
+      second_review = build(:review, pricing: 0)
+      third_review = build(:review, pricing: 0, friendliness: 0)
+      reviews = Enum.shuffle([first_review, second_review, third_review])
+
+      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
+      assert [first_review, second_review, third_review] = sorted_reviews
+    end
   end
 end

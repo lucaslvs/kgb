@@ -22,7 +22,7 @@ defmodule KGB.Review.SortByOverlyPositive do
       by_rating(review),
       by_employees_average_rating(review),
       by_number_of_employees(review),
-      by_number_of_topics_evaluated(review)
+      by_number_of_rated_topics(review)
     }
   end
 
@@ -39,7 +39,7 @@ defmodule KGB.Review.SortByOverlyPositive do
   defp by_number_of_employees(review)
   defp by_number_of_employees(%Review{mentioned_employees: employees}), do: length(employees)
 
-  defp by_number_of_topics_evaluated(review) do
+  defp by_number_of_rated_topics(review) do
     review
     |> Map.take(@topics)
     |> Map.values()

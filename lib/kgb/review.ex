@@ -126,7 +126,7 @@ defmodule KGB.Review do
   1. Highest rated `KGB.Review.t()` by the number of stars
   2. The average of `KGB.Employee.t()` rating
   3. Number of `KGB.Employee.t()` mentioned in the review
-  4. Number of topics evaluated
+  4. Number of rated topics
 
   ## Examples
 

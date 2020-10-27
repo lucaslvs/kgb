@@ -13,7 +13,7 @@ The Crawler was built with [Crawly](https://github.com/oltarasenko/crawly) and [
 1. Highest rated review by the number of stars.
 2. The average of the employees rating.
 3. The number of employees mentioned in the review.
-4. The number of topics evaluated.
+4. The number of rated topics.
 
 ## Requirements
 
