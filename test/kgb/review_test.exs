@@ -165,7 +165,7 @@ defmodule KGB.ReviewTest do
       assert [first_review, second_review, third_review] = sorted_reviews
     end
 
-    test "should sort reviews by your employee's average rating criteria" do
+    test "should sort reviews by employee's average rating criteria" do
       first_review = build(:review, mentioned_employees: build_list(3, :employee, rating: 50))
 
       second_review =
