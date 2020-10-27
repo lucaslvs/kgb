@@ -127,12 +127,6 @@ defmodule KGB.Review do
   2. The average of `KGB.Employee.t()` rating
   3. Number of `KGB.Employee.t()` mentioned in the review
   4. Number of rated topics
-
-  ## Examples
-
-      #TODO
-      iex> {:ok, sorted_reviews} = sort_reviews_by_overly_positive(reviews)
-      []
   """
   @spec sort_by_overly_positive(list(KGB.Review.t())) ::
           {:ok, list(KGB.Review.t())} | {:error, any()}
