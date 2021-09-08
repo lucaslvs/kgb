@@ -101,7 +101,7 @@ defmodule KGB.ReviewTest do
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
       assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
-      assert [first_review, second_review, third_review] = sorted_reviews
+      assert [^first_review, ^second_review, ^third_review] = sorted_reviews
     end
 
     test "should sort reviews by employee's average rating criteria" do
@@ -118,7 +118,7 @@ defmodule KGB.ReviewTest do
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
       assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
-      assert [first_review, second_review, third_review] = sorted_reviews
+      assert [^first_review, ^second_review, ^third_review] = sorted_reviews
     end
 
     test "should sort reviews by the number of mentioned employees" do
@@ -128,7 +128,7 @@ defmodule KGB.ReviewTest do
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
       assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
-      assert [first_review, second_review, third_review] = sorted_reviews
+      assert [^first_review, ^second_review, ^third_review] = sorted_reviews
     end
 
     test "should sort reviews by the number of rated topics" do
@@ -138,7 +138,7 @@ defmodule KGB.ReviewTest do
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
       assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
-      assert [first_review, second_review, third_review] = sorted_reviews
+      assert [^first_review, ^second_review, ^third_review] = sorted_reviews
     end
   end
 end
