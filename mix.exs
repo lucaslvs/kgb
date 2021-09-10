@@ -26,11 +26,11 @@ defmodule KGB.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:crawly, "~> 0.11.0"},
-      {:floki, "~> 0.26.0"},
+      {:crawly, "~> 0.13.0"},
+      {:floki, "~> 0.31.0"},
       {:exop, "~> 1.4"},
-      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:ex_machina, "~> 2.4", only: :test}
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:ex_machina, "~> 2.7", only: :test}
     ]
   end
 end
