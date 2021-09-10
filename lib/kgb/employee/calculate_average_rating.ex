@@ -11,14 +11,8 @@ defmodule KGB.Employee.CalculateAverageRating do
   def process(parameters)
 
   def process(%{employees: employees}) do
-    total_rating = Enum.reduce(employees, 0, &reducer/2)
-
-    average_rating =
-      if total_rating == 0 do
-        total_rating
-      else
-        div(total_rating, length(employees))
-      end
+    rating = Enum.reduce(employees, 0, &reducer/2)
+    average_rating = if rating == 0, do: rating, else: div(rating, length(employees))
 
     {:ok, average_rating}
   end

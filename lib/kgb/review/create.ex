@@ -5,7 +5,7 @@ defmodule KGB.Review.Create do
 
   alias KGB.{Employee, Review}
 
-  parameter(:custumer_name, type: :string, from: "custumer_name")
+  parameter(:customer_name, type: :string, from: "customer_name")
   parameter(:content, type: :string, from: "content")
   parameter(:publication_date, type: :string, from: "publication_date")
 
@@ -21,9 +21,9 @@ defmodule KGB.Review.Create do
     numericality: %{greater_than_or_equal_to: 0, less_than_or_equal_to: 50}
   )
 
-  parameter(:custom_service,
+  parameter(:customer_service,
     type: :integer,
-    from: "custom_service",
+    from: "customer_service",
     numericality: %{greater_than_or_equal_to: 0, less_than_or_equal_to: 50}
   )
 

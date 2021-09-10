@@ -1,7 +1,7 @@
 defmodule KGB.Review.SortByOverlyPositive do
   @moduledoc false
 
-  @topics [:custom_service, :quality_of_work, :friendliness, :pricing, :overall_experience]
+  @topics [:customer_service, :quality_of_work, :friendliness, :pricing, :overall_experience]
 
   use Exop.Operation
 

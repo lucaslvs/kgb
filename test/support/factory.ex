@@ -14,9 +14,9 @@ defmodule KGB.Factory do
   def review_factory do
     %Review{
       content: "some content",
-      custom_service: 50,
+      customer_service: 50,
       friendliness: 50,
-      custumer_name: "Custumer",
+      customer_name: "customer",
       overall_experience: 50,
       pricing: 50,
       publication_date: "October 21, 2020",

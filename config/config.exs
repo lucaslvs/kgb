@@ -27,20 +27,6 @@ config :crawly,
     {Crawly.Middlewares.UserAgent, user_agents: ["LucasBot"]}
   ],
   pipelines: [
-    {Crawly.Pipelines.Validate,
-     fields: [
-       :custumer_name,
-       :content,
-       :publication_date,
-       :rating,
-       :custom_service,
-       :quality_of_work,
-       :friendliness,
-       :pricing,
-       :overall_experience,
-       :recommend_dealer,
-       :mentioned_employees
-     ]},
     Crawly.Pipelines.JSONEncoder,
     {Crawly.Pipelines.WriteToFile, extension: "json", folder: "./", include_timestamp: false}
   ]

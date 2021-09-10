@@ -6,11 +6,11 @@ defmodule KGB.Review do
   alias KGB.Employee
 
   @enforce_keys [
-    :custumer_name,
+    :customer_name,
     :content,
     :publication_date,
     :rating,
-    :custom_service,
+    :customer_service,
     :quality_of_work,
     :friendliness,
     :pricing,
@@ -22,11 +22,11 @@ defmodule KGB.Review do
   defstruct @enforce_keys
 
   @type t() :: %KGB.Review{
-          custumer_name: binary(),
+          customer_name: binary(),
           content: binary(),
           publication_date: binary(),
           rating: integer(),
-          custom_service: integer(),
+          customer_service: integer(),
           quality_of_work: integer(),
           friendliness: integer(),
           pricing: integer(),
@@ -45,9 +45,9 @@ defmodule KGB.Review do
 
       iex> valid_parameters = %{
       ...> content: "some content",
-      ...> custom_service: 50,
+      ...> customer_service: 50,
       ...> friendliness: 50,
-      ...> custumer_name: "client",
+      ...> customer_name: "client",
       ...> overall_experience: 10,
       ...> pricing: 10,
       ...> publication_date: "October 21, 2020",
@@ -58,9 +58,9 @@ defmodule KGB.Review do
       ...> }
       %{
         content: "some content",
-        custom_service: 50,
+        customer_service: 50,
         friendliness: 50,
-        custumer_name: "client",
+        customer_name: "client",
         overall_experience: 10,
         pricing: 10,
         publication_date: "October 21, 2020",
@@ -73,9 +73,9 @@ defmodule KGB.Review do
       iex> KGB.Review.create(valid_parameters)
       {:ok, %KGB.Review{
         content: "some content",
-        custom_service: 50,
+        customer_service: 50,
         friendliness: 50,
-        custumer_name: "client",
+        customer_name: "client",
         mentioned_employees: [%KGB.Employee{name: "Lucas", rating: 50}],
         overall_experience: 10,
         pricing: 10,
@@ -87,9 +87,9 @@ defmodule KGB.Review do
 
       iex> invalid_parameters = %{
       ...> content: "some content",
-      ...> custom_service: 50,
+      ...> customer_service: 50,
       ...> friendliness: 50,
-      ...> custumer_name: "client",
+      ...> customer_name: "client",
       ...> overall_experience: 10,
       ...> pricing: 10,
       ...> publication_date: "October 21, 2020",
@@ -100,9 +100,9 @@ defmodule KGB.Review do
       ...> }
       %{
         content: "some content",
-        custom_service: 50,
+        customer_service: 50,
         friendliness: 50,
-        custumer_name: "client",
+        customer_name: "client",
         overall_experience: 10,
         pricing: 10,
         publication_date: "October 21, 2020",
@@ -139,11 +139,11 @@ defmodule KGB.Review do
   """
   @spec template_render(KGB.Review.t()) :: binary()
   def template_render(%__MODULE__{
-        custumer_name: custumer_name,
+        customer_name: customer_name,
         content: content,
         publication_date: publication_date,
         rating: rating,
-        custom_service: custom_service,
+        customer_service: customer_service,
         quality_of_work: quality_of_work,
         friendliness: friendliness,
         pricing: pricing,
@@ -152,11 +152,11 @@ defmodule KGB.Review do
         mentioned_employees: mentioned_employees
       }) do
     """
-    CUSTUMER NAME: #{custumer_name}
+    customer NAME: #{customer_name}
     PUBLICATION DATE: #{publication_date}
     RATING: #{rating}
     CONTENT: #{content}
-    CUSTOM SERVICE: #{custom_service}
+    CUSTOM SERVICE: #{customer_service}
     QUALITY OF WORK: #{quality_of_work}
     FRIENDLINESS: #{friendliness}
     PRICING: #{pricing}

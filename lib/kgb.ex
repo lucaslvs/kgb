@@ -79,6 +79,8 @@ defmodule KGB do
   end
 
   defp create_review(parameters) do
+    IO.inspect(parameters)
+
     mentioned_employees =
       parameters
       |> Map.get("mentioned_employees")

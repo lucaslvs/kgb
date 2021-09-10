@@ -9,9 +9,9 @@ defmodule KGB.ReviewTest do
     test "should returns a Review when receive valid parameters" do
       parameters = %{
         content: "some content",
-        custom_service: 50,
+        customer_service: 50,
         friendliness: 50,
-        custumer_name: "client",
+        customer_name: "client",
         overall_experience: 10,
         pricing: 10,
         publication_date: "October 21, 2020",
@@ -30,8 +30,8 @@ defmodule KGB.ReviewTest do
               {:validation,
                %{
                  content: ["is required"],
-                 custom_service: ["is required"],
-                 custumer_name: ["is required"],
+                 customer_service: ["is required"],
+                 customer_name: ["is required"],
                  friendliness: ["is required"],
                  mentioned_employees: ["is not a list", "is required"],
                  overall_experience: ["is required"],
@@ -47,9 +47,9 @@ defmodule KGB.ReviewTest do
     test "should returns a error tuple when receive a map with :mentioned_employees there isn't a list of Employee" do
       parameters = %{
         content: "some content",
-        custom_service: 50,
+        customer_service: 50,
         friendliness: 50,
-        custumer_name: "client",
+        customer_name: "client",
         overall_experience: 10,
         pricing: 10,
         publication_date: "October 21, 2020",
@@ -74,7 +74,7 @@ defmodule KGB.ReviewTest do
       review = build(:review, recommend_dealer: "Yes")
 
       assert """
-             CUSTUMER NAME: Custumer
+             customer NAME: customer
              PUBLICATION DATE: October 21, 2020
              RATING: 50
              CONTENT: some content
