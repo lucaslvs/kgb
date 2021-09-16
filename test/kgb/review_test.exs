@@ -30,15 +30,10 @@ defmodule KGB.ReviewTest do
               {:validation,
                %{
                  content: ["is required"],
-                 customer_service: ["is required"],
                  customer_name: ["is required"],
-                 friendliness: ["is required"],
                  mentioned_employees: ["is not a list", "is required"],
                  overall_experience: ["is required"],
-                 pricing: ["is required"],
                  publication_date: ["is required"],
-                 quality_of_work: ["is required"],
-                 rating: ["is required", "is required"],
                  recommend_dealer: ["is required"]
                }}} = Review.create(%{})
     end
@@ -100,7 +95,7 @@ defmodule KGB.ReviewTest do
       third_review = build(:review, rating: 30)
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
-      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
+      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews: reviews)
       assert [^first_review, ^second_review, ^third_review] = sorted_reviews
     end
 
@@ -117,7 +112,7 @@ defmodule KGB.ReviewTest do
 
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
-      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
+      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews: reviews)
       assert [^first_review, ^second_review, ^third_review] = sorted_reviews
     end
 
@@ -127,7 +122,7 @@ defmodule KGB.ReviewTest do
       third_review = build(:review, mentioned_employees: build_list(1, :employee))
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
-      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
+      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews: reviews)
       assert [^first_review, ^second_review, ^third_review] = sorted_reviews
     end
 
@@ -137,7 +132,7 @@ defmodule KGB.ReviewTest do
       third_review = build(:review, pricing: 0, friendliness: 0)
       reviews = Enum.shuffle([first_review, second_review, third_review])
 
-      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
+      assert {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews: reviews)
       assert [^first_review, ^second_review, ^third_review] = sorted_reviews
     end
   end

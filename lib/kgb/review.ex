@@ -3,6 +3,7 @@ defmodule KGB.Review do
   This module is responsible for model a review posted in `https://www.dealerrater.com/`.
   """
 
+  alias __MODULE__.{Create, SortByOverlyPositive}
   alias KGB.Employee
 
   @enforce_keys [
@@ -21,16 +22,16 @@ defmodule KGB.Review do
 
   defstruct @enforce_keys
 
-  @type t() :: %KGB.Review{
+  @type t() :: %__MODULE__{
           customer_name: binary(),
           content: binary(),
           publication_date: binary(),
-          rating: integer(),
-          customer_service: integer(),
-          quality_of_work: integer(),
-          friendliness: integer(),
-          pricing: integer(),
-          overall_experience: integer(),
+          rating: non_neg_integer(),
+          customer_service: non_neg_integer(),
+          quality_of_work: non_neg_integer(),
+          friendliness: non_neg_integer(),
+          pricing: non_neg_integer(),
+          overall_experience: non_neg_integer(),
           recommend_dealer: binary(),
           mentioned_employees: list(KGB.Employee.t())
         }
@@ -70,7 +71,7 @@ defmodule KGB.Review do
         mentioned_employees: [%KGB.Employee{name: "Lucas", rating: 50}]
       }
 
-      iex> KGB.Review.create(valid_parameters)
+      iex> KGB.Review.run(valid_parameters)
       {:ok, %KGB.Review{
         content: "some content",
         customer_service: 50,
@@ -112,13 +113,11 @@ defmodule KGB.Review do
         mentioned_employees: ["a"]
       }
 
-      iex> KGB.Review.create(invalid_parameters)
+      iex> KGB.Review.run(invalid_parameters)
       {:error, {:validation, %{ "mentioned_employees[0]" => ["is not expected struct; expected: KGB.Employee; got: \"a\""]}}}
   """
-  @spec create(map()) :: {:ok, KGB.Review.t()} | {:error, any()}
-  def create(parameters) when is_map(parameters) do
-    __MODULE__.Create.run(parameters)
-  end
+  @spec create(keyword() | map()) :: {:error, any()} | {:ok, __MODULE__.t()}
+  defdelegate create(parameters), to: Create, as: :run
 
   @doc """
   Sort a list of `KGB.Review.t()` by the following criteria:
@@ -128,11 +127,9 @@ defmodule KGB.Review do
   3. Number of `KGB.Employee.t()` mentioned in the review
   4. Number of rated topics
   """
-  @spec sort_by_overly_positive(list(KGB.Review.t())) ::
-          {:ok, list(KGB.Review.t())} | {:error, any()}
-  def sort_by_overly_positive(reviews) do
-    __MODULE__.SortByOverlyPositive.run(reviews: reviews)
-  end
+  @spec sort_by_overly_positive(keyword() | map()) ::
+          {:error, any()} | {:ok, list(__MODULE__.t())}
+  defdelegate sort_by_overly_positive(parameters), to: SortByOverlyPositive, as: :run
 
   @doc """
   Build template render for a `KGB.Review.t()` to be printed.

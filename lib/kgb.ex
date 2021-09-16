@@ -30,24 +30,22 @@ defmodule KGB do
   end
 
   defp read_parsed_items(:ok) do
-    if File.exists?(@file_name) do
-      {:ok, file} = File.read(@file_name)
-      parsed_items = get_parsed_items(file)
+    with {:file_exist, true} <- {:file_exist, File.exists?(@file_name)},
+         {:ok, file} <- File.read(@file_name),
+         parsed_items <- get_parsed_items(file),
+         {:scrape_completed, true} <- {:scrape_completed, scraping_was_completed?(parsed_items)} do
+      Logger.info("Successfully scraped reviews", ansi_color: :green)
 
-      if length(parsed_items) >= get_page_number() * 10 do
-        Logger.info("Successfully scraped reviews", ansi_color: :green)
-        parsed_items
-      else
-        read_parsed_items(:ok)
-      end
+      parsed_items
     else
-      read_parsed_items(:ok)
-    end
-  end
+      {:error, reason} ->
+        Logger.error("Cannot read parsed items", reason: reason)
 
-  defp read_parsed_items(_) do
-    Logger.error("Cannot read parsed items")
-    System.halt()
+        stop()
+
+      _ ->
+        read_parsed_items(:ok)
+    end
   end
 
   defp get_parsed_items(file) do
@@ -62,11 +60,22 @@ defmodule KGB do
     |> Keyword.get(:page_number)
   end
 
+  defp scraping_was_completed?(parsed_items) do
+    length(parsed_items) >= get_page_number() * 10
+  end
+
   defp delete_parsed_items(parsed_items) do
     Logger.info("Deleting #{@file_name} file", ansi_color: :green)
 
-    :ok = File.rm(@file_name)
-    parsed_items
+    case File.rm(@file_name) do
+      :ok ->
+        parsed_items
+
+      _ ->
+        Logger.warning("Failed to delete #{@file_name} file")
+
+        parsed_items
+    end
   end
 
   defp create_reviews(parsed_items) do
@@ -79,32 +88,47 @@ defmodule KGB do
   end
 
   defp create_review(parameters) do
-    IO.inspect(parameters)
+    with {_parameters, updated_parameters} <- create_employees(parameters),
+         {:ok, review} <- Review.create(updated_parameters) do
+      review
+    else
+      {:error, reason} ->
+        Logger.error("Failed to create review", reason: reason)
 
-    mentioned_employees =
-      parameters
-      |> Map.get("mentioned_employees")
-      |> Enum.map(&create_employee/1)
+        stop()
+    end
+  end
 
-    {:ok, review} =
-      parameters
-      |> Map.put("mentioned_employees", mentioned_employees)
-      |> Review.create()
-
-    review
+  defp create_employees(parameters) do
+    Map.get_and_update(parameters, "mentioned_employees", fn employees_parameters ->
+      {employees_parameters, Enum.map(employees_parameters, &create_employee/1)}
+    end)
   end
 
   defp create_employee(parameters) do
-    {:ok, employee} = Employee.create(parameters)
+    case Employee.create(parameters) do
+      {:ok, employee} ->
+        employee
 
-    employee
+      {:error, reason} ->
+        Logger.error("Failed to create employee", reason: reason)
+
+        stop()
+    end
   end
 
   defp sort_reviews(reviews) do
     Logger.info("Sorting reviews by overly positive", ansi_color: :green)
-    {:ok, sorted_reviews} = Review.sort_by_overly_positive(reviews)
 
-    sorted_reviews
+    case Review.sort_by_overly_positive(reviews: reviews) do
+      {:ok, sorted_reviews} ->
+        sorted_reviews
+
+      {:error, reason} ->
+        Logger.error("Failed to sort reviews", reason: reason)
+
+        stop()
+    end
   end
 
   defp print_top_three(sorted_reviews) do
@@ -112,9 +136,16 @@ defmodule KGB do
     |> Enum.slice(0..2)
     |> Enum.map(&Review.template_render/1)
     |> Enum.with_index()
-    |> Enum.each(fn {review, index} ->
-      IO.puts("#{index + 1}º REVIEW")
-      IO.puts(review)
-    end)
+    |> Enum.each(&print_review/1)
+  end
+
+  defp print_review({review, index}) do
+    IO.puts("#{index + 1}º REVIEW")
+    IO.puts(review)
+  end
+
+  defp stop do
+    Process.sleep(1000)
+    System.halt()
   end
 end
