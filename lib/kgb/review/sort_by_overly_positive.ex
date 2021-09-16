@@ -32,7 +32,8 @@ defmodule KGB.Review.SortByOverlyPositive do
   defp by_employees_average_rating(review)
 
   defp by_employees_average_rating(%Review{mentioned_employees: employees}) do
-    {:ok, employees_average_rating} = Employee.calculate_average_rating(employees)
+    {:ok, employees_average_rating} = Employee.calculate_average_rating(employees: employees)
+
     employees_average_rating
   end
 

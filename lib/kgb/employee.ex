@@ -3,6 +3,8 @@ defmodule KGB.Employee do
   This module is responsible for model an employee mentioned in the `KGB.Review.t()`.
   """
 
+  alias __MODULE__.{Create, CalculateAverageRating}
+
   @enforce_keys [:name, :rating]
 
   defstruct @enforce_keys
@@ -29,37 +31,32 @@ defmodule KGB.Employee do
       iex> KGB.Employee.create(%{name: "Lucas", rating: -1})
       {:error, {:validation, %{rating: ["must be greater than or equal to 0; got: -1"]}}}
   """
-  @spec create(map()) :: {:ok, KGB.Employee.t()} | {:error, any()}
-  def create(parameters) when is_map(parameters) do
-    __MODULE__.Create.run(parameters)
-  end
+  @spec create(keyword() | map()) :: {:ok, __MODULE__.t()} | {:error, any()}
+  defdelegate create(parameters), to: Create, as: :run
 
-  @doc """
-  Calculate the average rating from a list of `KGB.Employee`.
+  # @doc """
+  # Calculate the average rating from a list of `KGB.Employee`.
 
-  ## Examples
+  # ## Examples
 
-      iex> employees = [
-      ...> %Employee{name: "1", rating: 10},
-      ...> %Employee{name: "2", rating: 20},
-      ...> %Employee{name: "3", rating: 30}
-      ...> ]
-      [%Employee{name: "1", rating: 10}, %Employee{name: "2", rating: 20}, %Employee{name: "3", rating: 30}]
+  #     iex> employees = [
+  #     ...> %Employee{name: "1", rating: 10},
+  #     ...> %Employee{name: "2", rating: 20},
+  #     ...> %Employee{name: "3", rating: 30}
+  #     ...> ]
+  #     [%Employee{name: "1", rating: 10}, %Employee{name: "2", rating: 20}, %Employee{name: "3", rating: 30}]
 
-      iex> Employee.calculate_average_rating(employees)
-      {:ok, 20}
-  """
-  @spec calculate_average_rating(list(KGB.Employee.t() | [])) ::
-          {:ok, integer()} | {:error, any()}
-  def calculate_average_rating(employees) when is_list(employees) do
-    __MODULE__.CalculateAverageRating.run(employees: employees)
-  end
+  #     iex> Employee.calculate_average_rating(employees: employees)
+  #     {:ok, 20}
+  # """
+  @spec calculate_average_rating(keyword() | map()) :: {:ok, integer()} | {:error, any()}
+  defdelegate calculate_average_rating(parameters), to: CalculateAverageRating, as: :run
 
   @doc """
   Build template render for a `KGB.Employee.t()` to be printed.
   """
-  @spec template_render(KGB.Employee.t()) :: binary()
-  def template_render(%__MODULE__{name: name, rating: rating}) do
-    "#{name} - #{rating}"
+  @spec build_template_render(KGB.Employee.t()) :: binary()
+  def build_template_render(%__MODULE__{name: name, rating: rating}) do
+    "#{name}: #{rating}"
   end
 end

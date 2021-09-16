@@ -5,6 +5,7 @@ defmodule KGB do
   """
 
   @file_name "KGB.Spider.json"
+  @review_by_page 10
 
   alias Crawly.Engine
   alias KGB.{Employee, Review, Spider}
@@ -61,7 +62,7 @@ defmodule KGB do
   end
 
   defp scraping_was_completed?(parsed_items) do
-    length(parsed_items) >= get_page_number() * 10
+    length(parsed_items) >= get_page_number() * @review_by_page
   end
 
   defp delete_parsed_items(parsed_items) do
@@ -134,7 +135,7 @@ defmodule KGB do
   defp print_top_three(sorted_reviews) do
     sorted_reviews
     |> Enum.slice(0..2)
-    |> Enum.map(&Review.template_render/1)
+    |> Enum.map(&Review.build_template_render/1)
     |> Enum.with_index()
     |> Enum.each(&print_review/1)
   end

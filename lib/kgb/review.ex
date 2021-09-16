@@ -134,8 +134,8 @@ defmodule KGB.Review do
   @doc """
   Build template render for a `KGB.Review.t()` to be printed.
   """
-  @spec template_render(KGB.Review.t()) :: binary()
-  def template_render(%__MODULE__{
+  @spec build_template_render(KGB.Review.t()) :: binary()
+  def build_template_render(%__MODULE__{
         customer_name: customer_name,
         content: content,
         publication_date: publication_date,
@@ -165,6 +165,6 @@ defmodule KGB.Review do
   end
 
   defp render_employees(mentioned_employees) do
-    Enum.map(mentioned_employees, &"- #{Employee.template_render(&1)}\n")
+    Enum.map(mentioned_employees, &"- #{Employee.build_template_render(&1)}\n")
   end
 end

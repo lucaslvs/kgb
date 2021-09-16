@@ -64,7 +64,7 @@ defmodule KGB.ReviewTest do
     end
   end
 
-  describe "template_render/1" do
+  describe "build_template_render/1" do
     test "should returns a string with Review data to print" do
       review = build(:review, recommend_dealer: "Yes")
 
@@ -84,7 +84,7 @@ defmodule KGB.ReviewTest do
              - Employee - 50
              - Employee - 50
 
-             """ = Review.template_render(review)
+             """ = Review.build_template_render(review)
     end
   end
 
