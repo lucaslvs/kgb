@@ -140,43 +140,6 @@ defmodule KGB.Spider do
     end
   end
 
-  # defp find_review_customer_service(review_document) do
-  #   review_document
-  #   |> Floki.find("div.review-ratings-all > div.table > div:nth-child(1) > div:nth-child(2)")
-  #   |> find_rating_value(1)
-  # end
-
-  # defp find_review_quality_of_work(review_document) do
-  #   review_document
-  #   |> Floki.find("div.review-ratings-all > div.table > div:nth-child(2) > div:nth-child(2)")
-  #   |> find_rating_value(1)
-  # end
-
-  # defp find_review_friendliness(review_document) do
-  #   review_document
-  #   |> Floki.find("div.review-ratings-all > div.table > div:nth-child(3) > div:nth-child(2)")
-  #   |> find_rating_value(1)
-  # end
-
-  # defp find_review_pricing(review_document) do
-  #   review_document
-  #   |> Floki.find("div.review-ratings-all > div.table > div:nth-child(4) > div:nth-child(2)")
-  #   |> find_rating_value(1)
-  # end
-
-  # defp find_review_overall_experience(review_document) do
-  #   review_document
-  #   |> Floki.find("div.review-ratings-all > div.table > div:nth-child(5) > div:nth-child(2)")
-  #   |> find_rating_value(1)
-  # end
-
-  # defp find_review_recommend_dealer(review_document) do
-  #   review_document
-  #   |> Floki.find("div.review-ratings-all > div.table > div:nth-child(6) > div:nth-child(2)")
-  #   |> Floki.text()
-  #   |> String.trim()
-  # end
-
   defp find_rating_value(element, index) do
     element
     |> Floki.attribute("class")
