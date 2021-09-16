@@ -4,20 +4,18 @@ defmodule KGB.Spider do
   and is resposible to scrape a list of `KGB.Review.t()`.
   """
 
-  @config Application.get_env(:kgb, __MODULE__)
-
   use Crawly.Spider
 
   alias Crawly.ParsedItem
   alias HTTPoison.Response
 
   @impl Crawly.Spider
-  def base_url, do: Keyword.get(@config, :base_url)
+  def base_url, do: Keyword.get(config(), :base_url)
 
   @impl Crawly.Spider
   def init do
-    page_number = Keyword.get(@config, :page_number)
-    dealer_path = Keyword.get(@config, :dealer_path)
+    page_number = Keyword.get(config(), :page_number)
+    dealer_path = Keyword.get(config(), :dealer_path)
     start_urls = Enum.map(1..page_number, &build_start_url(&1, dealer_path))
 
     Keyword.new(start_urls: start_urls)
@@ -35,6 +33,8 @@ defmodule KGB.Spider do
 
     %ParsedItem{items: items, requests: []}
   end
+
+  defp config, do: Application.get_env(:kgb, __MODULE__)
 
   def build_start_url(number, dealer_path) do
     "#{base_url()}/dealer/#{dealer_path}/page#{number}"
