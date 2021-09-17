@@ -1,7 +1,7 @@
 defmodule KGB do
   @moduledoc """
-  The main module that contains the `print_top_three_reviews_overly_positive/0`
-  function that spawn the `KGB.Spider` and prints the top three overly positive reviews.
+  The main module that contains the `print_top_reviews_overly_positive/0`
+  function that spawn the `KGB.Spider` and prints the top overly positive reviews.
   """
 
   @file_name "KGB.Spider.json"
@@ -15,8 +15,8 @@ defmodule KGB do
   @doc """
   Print the top three overly positive reviews from DealerRater.
   """
-  @spec print_top_three_reviews_overly_positive :: :ok
-  def print_top_three_reviews_overly_positive do
+  @spec print_top_reviews_overly_positive :: :ok
+  def print_top_reviews_overly_positive do
     start_spider()
     |> read_parsed_items()
     |> delete_parsed_items()
@@ -27,6 +27,7 @@ defmodule KGB do
 
   defp start_spider do
     Logger.info("Starting scraping the reviews", ansi_color: :green)
+
     Engine.start_spider(Spider)
   end
 
