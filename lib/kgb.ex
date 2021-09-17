@@ -8,7 +8,7 @@ defmodule KGB do
   @review_by_page 10
 
   alias Crawly.Engine
-  alias KGB.{Employee, Review, Spider}
+  alias KGB.{Employee, Printer, Review, Spider}
 
   require Logger
 
@@ -22,7 +22,7 @@ defmodule KGB do
     |> delete_parsed_items()
     |> create_reviews()
     |> sort_reviews()
-    |> print_top_three()
+    |> Printer.print_reviews()
   end
 
   defp start_spider do
@@ -130,19 +130,6 @@ defmodule KGB do
 
         stop()
     end
-  end
-
-  defp print_top_three(sorted_reviews) do
-    sorted_reviews
-    |> Enum.slice(0..2)
-    |> Enum.map(&Review.build_template_render/1)
-    |> Enum.with_index()
-    |> Enum.each(&print_review/1)
-  end
-
-  defp print_review({review, index}) do
-    IO.puts("#{index + 1}º REVIEW")
-    IO.puts(review)
   end
 
   defp stop do

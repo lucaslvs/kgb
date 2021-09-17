@@ -51,12 +51,4 @@ defmodule KGB.Employee do
   # """
   @spec calculate_average_rating(keyword() | map()) :: {:ok, integer()} | {:error, any()}
   defdelegate calculate_average_rating(parameters), to: CalculateAverageRating, as: :run
-
-  @doc """
-  Build template render for a `KGB.Employee.t()` to be printed.
-  """
-  @spec build_template_render(KGB.Employee.t()) :: binary()
-  def build_template_render(%__MODULE__{name: name, rating: rating}) do
-    "#{name}: #{rating}"
-  end
 end

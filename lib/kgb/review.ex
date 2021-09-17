@@ -4,7 +4,6 @@ defmodule KGB.Review do
   """
 
   alias __MODULE__.{Create, SortByOverlyPositive}
-  alias KGB.Employee
 
   @enforce_keys [
     :customer_name,
@@ -53,41 +52,4 @@ defmodule KGB.Review do
   @spec sort_by_overly_positive(keyword() | map()) ::
           {:error, any()} | {:ok, list(__MODULE__.t())}
   defdelegate sort_by_overly_positive(parameters), to: SortByOverlyPositive, as: :run
-
-  @doc """
-  Build template render for a `KGB.Review.t()` to be printed.
-  """
-  @spec build_template_render(KGB.Review.t()) :: binary()
-  def build_template_render(%__MODULE__{
-        customer_name: customer_name,
-        content: content,
-        publication_date: publication_date,
-        rating: rating,
-        customer_service: customer_service,
-        quality_of_work: quality_of_work,
-        friendliness: friendliness,
-        pricing: pricing,
-        overall_experience: overall_experience,
-        recommend_dealer: recommend_dealer,
-        mentioned_employees: mentioned_employees
-      }) do
-    """
-    customer NAME: #{customer_name}
-    PUBLICATION DATE: #{publication_date}
-    RATING: #{rating}
-    CONTENT: #{content}
-    CUSTOM SERVICE: #{customer_service}
-    QUALITY OF WORK: #{quality_of_work}
-    FRIENDLINESS: #{friendliness}
-    PRICING: #{pricing}
-    OVERALL EXPERIENCE: #{overall_experience}
-    RECOMMEND_DEALER: #{recommend_dealer}
-    MENTIONED EMPLOYEES:
-    #{render_employees(mentioned_employees)}
-    """
-  end
-
-  defp render_employees(mentioned_employees) do
-    Enum.map(mentioned_employees, &"- #{Employee.build_template_render(&1)}\n")
-  end
 end

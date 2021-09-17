@@ -64,30 +64,6 @@ defmodule KGB.ReviewTest do
     end
   end
 
-  describe "build_template_render/1" do
-    test "should returns a string with Review data to print" do
-      review = build(:review, recommend_dealer: "Yes")
-
-      assert """
-             customer NAME: customer
-             PUBLICATION DATE: October 21, 2020
-             RATING: 50
-             CONTENT: some content
-             CUSTOM SERVICE: 50
-             QUALITY OF WORK: 50
-             FRIENDLINESS: 50
-             PRICING: 50
-             OVERALL EXPERIENCE: 50
-             RECOMMEND_DEALER: Yes
-             MENTIONED EMPLOYEES:
-             - Employee - 50
-             - Employee - 50
-             - Employee - 50
-
-             """ = Review.build_template_render(review)
-    end
-  end
-
   describe "sort_by_overly_positive/1" do
     test "should sort reviews by rating criteria" do
       first_review = build(:review, rating: 50)
