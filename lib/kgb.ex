@@ -28,7 +28,7 @@ defmodule KGB do
   defp start_spider do
     Logger.info("Starting scraping the reviews", ansi_color: :green)
 
-    Engine.start_spider(Spider)
+    Engine.start_spider(ReviewSpider)
   end
 
   defp read_parsed_items(:ok) do
@@ -46,11 +46,11 @@ defmodule KGB do
         stop()
 
       _ ->
-        read_scraped_reviews()
+        read_parsed_items(:ok)
     end
   end
 
-  defp get_parsed_items(file) do
+  defp get_scraped_reviews(file) do
     file
     |> String.split("\n")
     |> List.delete_at(-1)
