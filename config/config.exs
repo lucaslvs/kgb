@@ -14,7 +14,7 @@ if page_number < 1 do
   """
 end
 
-config :kgb, KGB.Spider,
+config :kgb, KGB.ReviewSpider,
   base_url: "https://www.dealerrater.com",
   dealer_path: dealer_path,
   page_number: page_number

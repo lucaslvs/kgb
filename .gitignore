@@ -24,4 +24,4 @@ kgb-*.tar
 
 /.elixir_ls/
 
-KGB.Spider.json
+KGB.ReviewSpider.json

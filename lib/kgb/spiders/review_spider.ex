@@ -1,4 +1,4 @@
-defmodule KGB.Spider do
+defmodule KGB.ReviewSpider do
   @moduledoc """
   That module is a implementation of `Crawly.Spider`
   and is resposible to scrape a list of `KGB.Review.t()`.

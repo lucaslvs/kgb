@@ -1,14 +1,14 @@
 defmodule KGB do
   @moduledoc """
   The main module that contains the `print_top_reviews_overly_positive/0`
-  function that spawn the `KGB.Spider` and prints the top overly positive reviews.
+  function that spawn the `KGB.ReviewSpider` and prints the top overly positive reviews.
   """
 
-  @file_name "KGB.Spider.json"
+  @file_name "KGB.ReviewSpider.json"
   @review_by_page 10
 
   alias Crawly.Engine
-  alias KGB.{Employee, Printer, Review, Spider}
+  alias KGB.{Employee, Printer, Review, ReviewSpider}
 
   require Logger
 
@@ -34,11 +34,11 @@ defmodule KGB do
   defp read_parsed_items(:ok) do
     with {:file_exist, true} <- {:file_exist, File.exists?(@file_name)},
          {:ok, file} <- File.read(@file_name),
-         parsed_items <- get_parsed_items(file),
-         {:scrape_completed, true} <- {:scrape_completed, scraping_was_completed?(parsed_items)} do
+         scraped_reviews <- get_scraped_reviews(file),
+         {:scraped, true} <- {:scraped, scraping_was_completed?(scraped_reviews)} do
       Logger.info("Successfully scraped reviews", ansi_color: :green)
 
-      parsed_items
+      scraped_reviews
     else
       {:error, reason} ->
         Logger.error("Cannot read parsed items", reason: reason)
@@ -46,7 +46,7 @@ defmodule KGB do
         stop()
 
       _ ->
-        read_parsed_items(:ok)
+        read_scraped_reviews()
     end
   end
 
