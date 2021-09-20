@@ -32,7 +32,6 @@ defmodule KGB.ReviewTest do
                  content: ["is required"],
                  customer_name: ["is required"],
                  mentioned_employees: ["is not a list", "is required"],
-                 overall_experience: ["is required"],
                  publication_date: ["is required"],
                  recommend_dealer: ["is required"]
                }}} = Review.create(%{})

@@ -58,7 +58,7 @@ defmodule KGB do
 
   defp get_page_number do
     :kgb
-    |> Application.get_env(Spider)
+    |> Application.get_env(ReviewSpider)
     |> Keyword.get(:page_number)
   end
 

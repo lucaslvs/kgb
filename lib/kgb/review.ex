@@ -45,9 +45,9 @@ defmodule KGB.Review do
   Sort a list of `KGB.Review.t()` by the following criteria:
 
   1. Highest rated `KGB.Review.t()` by the number of stars
-  2. The average of `KGB.Employee.t()` rating
-  3. Number of `KGB.Employee.t()` mentioned in the review
-  4. Number of rated topics
+  2. Number of rated topics
+  3. The average of `KGB.Employee.t()` rating
+  4. Number of `KGB.Employee.t()` mentioned in the review
   """
   @spec sort_by_overly_positive(keyword() | map()) ::
           {:error, any()} | {:ok, list(__MODULE__.t())}

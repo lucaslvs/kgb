@@ -20,9 +20,9 @@ defmodule KGB.Review.SortByOverlyPositive do
   defp sorter(%Review{} = review) do
     {
       by_rating(review),
+      by_number_of_rated_topics(review),
       by_employees_average_rating(review),
-      by_number_of_employees(review),
-      by_number_of_rated_topics(review)
+      by_number_of_employees(review)
     }
   end
 

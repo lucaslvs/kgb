@@ -56,7 +56,8 @@ defmodule KGB.Review.Create do
   parameter(:overall_experience,
     type: :integer,
     from: "overall_experience",
-    numericality: %{greater_than_or_equal_to: 0, less_than_or_equal_to: 50}
+    numericality: %{greater_than_or_equal_to: 0, less_than_or_equal_to: 50},
+    default: &__MODULE__.default_overall_experience/1
   )
 
   parameter(:recommend_dealer, type: :string, from: "recommend_dealer")
@@ -69,8 +70,8 @@ defmodule KGB.Review.Create do
   end
 
   Enum.each(@rating_keys, fn rating_key ->
-    def unquote(:"default_#{to_string(rating_key)}")(parameters) do
-      Map.get(parameters, unquote(rating_key), 0)
+    def unquote(:"default_#{rating_key}")(parameters) do
+      Map.get(parameters, unquote(rating_key)) || Map.get(parameters, "#{unquote(rating_key)}", 0)
     end
   end)
 end
