@@ -4,7 +4,7 @@ defmodule KGB do
   function that spawn the `KGB.ReviewSpider` and prints the top overly positive reviews.
   """
 
-  @file_name "KGB.ReviewSpider.json"
+  @reviews_file "KGB.ReviewSpider.json"
   @review_by_page 10
 
   alias Crawly.Engine
@@ -17,76 +17,64 @@ defmodule KGB do
   """
   @spec print_top_reviews_overly_positive :: :ok
   def print_top_reviews_overly_positive do
-    start_spider()
-    |> read_parsed_items()
-    |> delete_parsed_items()
-    |> create_reviews()
-    |> sort_reviews()
-    |> Printer.print_reviews()
+    with :ok <- start_spider(ReviewSpider),
+         page_number when is_integer(page_number) <- get_reviews_page_number(),
+         {:ok, parsed_items} <- read_parsed_items(@reviews_file, page_number, @review_by_page),
+         :ok <- delete_parsed_items(@reviews_file),
+         {:ok, reviews} <- create_reviews(parsed_items),
+         {:ok, sorted_reviews} <- sort_reviews(reviews) do
+      Printer.print_reviews(sorted_reviews)
+    else
+      _ ->
+        Logger.error("Failed to print top reviews overly positive")
+    end
   end
 
-  defp start_spider do
-    Logger.info("Starting scraping the reviews", ansi_color: :green)
-
-    Engine.start_spider(ReviewSpider)
+  defp start_spider(spider_name) do
+    Engine.start_spider(spider_name)
   end
 
-  defp read_parsed_items(:ok) do
-    with {:file_exist, true} <- {:file_exist, File.exists?(@file_name)},
-         {:ok, file} <- File.read(@file_name),
-         scraped_reviews <- get_scraped_reviews(file),
-         {:scraped, true} <- {:scraped, scraping_was_completed?(scraped_reviews)} do
-      Logger.info("Successfully scraped reviews", ansi_color: :green)
-
-      scraped_reviews
+  defp read_parsed_items(file_name, page_number, items_by_page) do
+    with {:file_exist, true} <- {:file_exist, File.exists?(file_name)},
+         {:ok, file} <- File.read(file_name),
+         parsed_items <- get_parsed_items(file),
+         {:scraped, true} <- {:scraped, scrapped?(parsed_items, page_number, items_by_page)} do
+      {:ok, parsed_items}
     else
       {:error, reason} ->
         Logger.error("Cannot read parsed items", reason: reason)
 
-        stop()
-
       _ ->
-        read_parsed_items(:ok)
+        read_parsed_items(file_name, page_number, items_by_page)
     end
   end
 
-  defp get_scraped_reviews(file) do
+  defp get_parsed_items(file) do
     file
     |> String.split("\n")
     |> List.delete_at(-1)
   end
 
-  defp get_page_number do
+  defp get_reviews_page_number do
     :kgb
     |> Application.get_env(ReviewSpider)
     |> Keyword.get(:page_number)
   end
 
-  defp scraping_was_completed?(parsed_items) do
-    length(parsed_items) >= get_page_number() * @review_by_page
+  defp scrapped?(parsed_items, page_number, items_by_page) do
+    length(parsed_items) >= page_number * items_by_page
   end
 
-  defp delete_parsed_items(parsed_items) do
-    Logger.info("Deleting #{@file_name} file", ansi_color: :green)
-
-    case File.rm(@file_name) do
-      :ok ->
-        parsed_items
-
-      _ ->
-        Logger.warning("Failed to delete #{@file_name} file")
-
-        parsed_items
-    end
-  end
+  defp delete_parsed_items(file_name), do: File.rm(file_name)
 
   defp create_reviews(parsed_items) do
-    Logger.info("Creating reviews", ansi_color: :green)
+    reviews =
+      parsed_items
+      |> Stream.map(&Jason.decode!/1)
+      |> Stream.map(&create_review/1)
+      |> Enum.to_list()
 
-    parsed_items
-    |> Stream.map(&Jason.decode!/1)
-    |> Stream.map(&create_review/1)
-    |> Enum.to_list()
+    {:ok, reviews}
   end
 
   defp create_review(parameters) do
@@ -96,8 +84,6 @@ defmodule KGB do
     else
       {:error, reason} ->
         Logger.error("Failed to create review", reason: reason)
-
-        stop()
     end
   end
 
@@ -114,27 +100,16 @@ defmodule KGB do
 
       {:error, reason} ->
         Logger.error("Failed to create employee", reason: reason)
-
-        stop()
     end
   end
 
   defp sort_reviews(reviews) do
-    Logger.info("Sorting reviews by overly positive", ansi_color: :green)
-
     case Review.sort_by_overly_positive(reviews: reviews) do
-      {:ok, sorted_reviews} ->
-        sorted_reviews
-
       {:error, reason} ->
         Logger.error("Failed to sort reviews", reason: reason)
 
-        stop()
+      sorted_reviews ->
+        sorted_reviews
     end
-  end
-
-  defp stop do
-    Process.sleep(1000)
-    System.halt()
   end
 end
